@@ -8,7 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class RandomIntegersService {
 
-    List<Integer> createRandomIntegersList() {
-        return new Random().ints(100L, 1, 100).boxed().toList();
+    List<Integer> createRandomIntegersList(int count) {
+        return new Random().ints(count, 1, 100).boxed().toList();
     }
 }

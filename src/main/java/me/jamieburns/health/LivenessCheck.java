@@ -14,5 +14,4 @@ public class LivenessCheck implements HealthCheck {
     public HealthCheckResponse call() {
         return HealthCheckResponse.up("liveness-check");
     }
-
 }

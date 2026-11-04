@@ -14,5 +14,4 @@ public class ReadinessCheck implements HealthCheck {
     public HealthCheckResponse call() {
         return HealthCheckResponse.up("readiness-check");
     }
-
 }
