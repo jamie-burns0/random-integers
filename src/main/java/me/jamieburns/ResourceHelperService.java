@@ -3,7 +3,6 @@ package me.jamieburns;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.ws.rs.BadRequestException;
 
 @ApplicationScoped 
 public class ResourceHelperService {
@@ -17,20 +16,24 @@ public class ResourceHelperService {
         this.maximumNumberOfIntegers = maximumNumberOfIntegers;
     }
 
-    int resolveNumberOfIntegers(Integer numberOfIntegers) {
+    int maximumNumberOfIntegers() {
+        return maximumNumberOfIntegers;
+    }
+
+    Outcome<Integer, String> resolveNumberOfIntegers(Integer numberOfIntegers) {
 
         if (numberOfIntegers == null) {
-            return maximumNumberOfIntegers;
+            return Outcome.success(maximumNumberOfIntegers);
         }
 
         if (numberOfIntegers < 1) {
-            throw new BadRequestException("numberOfIntegers must be at least 1");
+            return Outcome.failure("numberOfIntegers must be at least 1");
         }
 
         if (numberOfIntegers > maximumNumberOfIntegers) {
-            throw new BadRequestException("numberOfIntegers must be no more than %s".formatted(maximumNumberOfIntegers));
+            return Outcome.failure("numberOfIntegers must be no more than %s".formatted(maximumNumberOfIntegers));
         }
         
-        return Math.min(numberOfIntegers, maximumNumberOfIntegers);
+        return Outcome.success(Math.min(numberOfIntegers, maximumNumberOfIntegers));
     }
 }
